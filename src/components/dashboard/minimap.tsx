@@ -6,7 +6,7 @@ import { TrackLocation } from "@/types/openf1";
 import { Card } from "@/components/ui/card";
 import clsx from "clsx";
 import Image from "next/image";
-import CircuitImage from "../images/Circuitafbeelding-Abu-Dhabi.png";
+import CircuitImage from "../images/m1.png";
 
 interface MiniMapProps {
     sessionKey: number;
