@@ -23,13 +23,14 @@ export default async function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-6 min-h-screen p-6">
-      <header className="flex justify-between items-end border-b border-gray-800 pb-4">
+      <header className="flex justify-between items-end border-b border-white/10 pb-4 glass-card-subtle rounded-lg px-6 py-4 shadow-lg">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-white uppercase italic">
             {session.meeting_key ? `${session.circuit_short_name} GP` : "Grand Prix"}
           </h1>
+          <p className="text-xs text-gray-500 mt-0.5">Latest Race</p>
           <div className="flex items-center gap-3 text-sm text-gray-400 mt-1">
-            <span className="bg-surface-highlight px-2 py-0.5 rounded text-xs font-mono text-white">{session.year}</span>
+            <span className="bg-surface-highlight px-2 py-0.5 rounded text-xs font-mono text-white">  {session.year}</span>
             <span>{session.session_name}</span>
             <span className="text-xs">•</span>
             <span className="font-mono">{new Date(session.date_start).toLocaleDateString()}</span>

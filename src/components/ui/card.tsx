@@ -12,14 +12,15 @@ export function Card({ title, children, className, noPadding = false, actions, .
     return (
         <div
             className={twMerge(
-                "bg-surface border border-gray-800 rounded-lg overflow-hidden flex flex-col relative",
+                "glass-card rounded-lg overflow-hidden flex flex-col relative",
                 "before:absolute before:top-0 before:left-0 before:w-full before:h-[2px] before:bg-gradient-to-r before:from-f1-red before:to-transparent",
+                "shadow-lg transition-all duration-300",
                 className
             )}
             {...props}
         >
             {title && (
-                <div className="px-4 py-3 border-b border-gray-800 flex justify-between items-center bg-surface-highlight/30">
+                <div className="px-4 py-3 border-b border-white/10 flex justify-between items-center bg-white/5 backdrop-blur-sm">
                     <h3 className="text-sm font-semibold text-text-secondary uppercase tracking-wider font-mono">
                         {title}
                     </h3>

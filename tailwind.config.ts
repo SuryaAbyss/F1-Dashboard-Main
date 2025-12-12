@@ -25,7 +25,16 @@ const config: Config = {
             },
             animation: {
                 pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-            }
+                shimmer: "shimmer 3s infinite",
+                liquidRotate: "liquidRotate 4s linear infinite",
+            },
+            backdropBlur: {
+                xs: '2px',
+                sm: '4px',
+                md: '12px',
+                lg: '16px',
+                xl: '24px',
+            },
         },
     },
     plugins: [],

@@ -52,9 +52,9 @@ export function RaceControlPanel({ sessionKey }: RaceControlPanelProps) {
                         <Skeleton className="h-10 w-full" />
                     </div>
                 ) : (
-                    <div className="divide-y divide-gray-800">
+                    <div className="divide-y divide-white/5">
                         {messages.map((msg, idx) => (
-                            <div key={idx} className="p-3 flex gap-3 text-sm hover:bg-white/5">
+                            <div key={idx} className="p-3 flex gap-3 text-sm hover:bg-white/10 transition-all duration-200 backdrop-blur-sm border-l-2 border-transparent hover:border-f1-red/50">
                                 <div className="mt-0.5 shrink-0">
                                     {getIcon(msg.flag, msg.category)}
                                 </div>

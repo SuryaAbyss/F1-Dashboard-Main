@@ -113,7 +113,7 @@ export function Leaderboard({ sessionKey }: LeaderboardProps) {
                                 return (
                                     <tr
                                         key={driver.driver_number}
-                                        className="hover:bg-white/5 transition-colors cursor-pointer group"
+                                        className="hover:bg-white/10 transition-all duration-200 cursor-pointer group backdrop-blur-sm border-b border-transparent hover:border-white/10"
                                         onClick={() => router.push(`/drivers/${driver.driver_number}`)}
                                     >
                                         <td className="px-3 py-1.5 font-mono text-gray-400 group-hover:text-white w-10 text-center">
@@ -121,7 +121,7 @@ export function Leaderboard({ sessionKey }: LeaderboardProps) {
                                         </td>
                                         <td className="px-3 py-1.5">
                                             <div className="flex items-center gap-2">
-                                                <div className="w-1 h-6 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.5)]" style={{ backgroundColor: `#${driver.team_colour}` }}></div>
+                                                <div className="w-1 h-6 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.5)] group-hover:shadow-lg transition-shadow" style={{ backgroundColor: `#${driver.team_colour}` }}></div>
                                                 <div className="flex flex-col justify-center">
                                                     <div className="font-bold text-white leading-none text-sm">{driver.name_acronym}</div>
                                                     <div className="text-[10px] text-gray-500 uppercase hidden sm:block">{driver.team_name}</div>

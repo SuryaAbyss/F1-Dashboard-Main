@@ -16,8 +16,8 @@ export function Sidebar() {
     const pathname = usePathname();
 
     return (
-        <aside className="fixed left-0 top-0 h-screen w-16 md:w-64 bg-surface border-r border-gray-800 flex flex-col z-50 transition-all">
-            <div className="h-16 flex items-center justify-center md:justify-start md:px-6 border-b border-gray-800">
+        <aside className="fixed left-0 top-0 h-screen w-16 md:w-64 glass-card-strong border-r border-white/10 flex flex-col z-50 transition-all">
+            <div className="h-16 flex items-center justify-center md:justify-start md:px-6 border-b border-white/10 bg-white/5 backdrop-blur-md">
                 <Flag className="w-6 h-6 text-f1-red mr-0 md:mr-3" />
                 <div className="hidden md:block">
                     <div className="font-bold text-lg tracking-tight italic leading-tight overflow-hidden">
@@ -91,27 +91,28 @@ export function Sidebar() {
                             key={item.href}
                             href={item.href}
                             className={clsx(
-                                "flex items-center p-3 rounded-md transition-all duration-200 group",
+                                "flex items-center p-3 rounded-md transition-all duration-200 group relative",
+                                "backdrop-blur-sm",
                                 isActive
-                                    ? "bg-f1-red/10 text-f1-red"
-                                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                                    ? "bg-f1-red/20 text-f1-red border border-f1-red/30 glass-glow"
+                                    : "text-gray-400 hover:bg-white/10 hover:text-white border border-transparent hover:border-white/10"
                             )}
                         >
                             <item.icon className={clsx("w-5 h-5", isActive ? "text-f1-red" : "group-hover:text-white")} />
                             <span className="hidden md:block ml-3 font-medium text-sm">{item.name}</span>
                             {isActive && (
-                                <div className="absolute left-0 w-1 h-8 bg-f1-red rounded-r-full" />
+                                <div className="absolute left-0 w-1 h-8 bg-f1-red rounded-r-full shadow-[0_0_10px_rgba(255,24,1,0.5)]" />
                             )}
                         </Link>
                     );
                 })}
             </nav>
 
-            <div className="p-4 border-t border-gray-800">
-                <div className="bg-surface-highlight/40 rounded p-3 text-xs text-gray-500 mb-3 hidden md:block">
+            <div className="p-4 border-t border-white/10 bg-white/5 backdrop-blur-md">
+                <div className="glass-card-subtle rounded p-3 text-xs text-gray-500 mb-3 hidden md:block">
                     <p>Session Status</p>
                     <div className="flex items-center gap-2 mt-1">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
                         <span className="text-white font-mono">LIVE FEED</span>
                     </div>
                 </div>
@@ -120,7 +121,7 @@ export function Sidebar() {
                     href="https://www.linkedin.com/in/suryaprakash18/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-[#0A66C2] hover:bg-[#004182] transition-all text-white text-xs font-semibold group"
+                    className="flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-[#0A66C2] hover:bg-[#004182] transition-all text-white text-xs font-semibold group glass-hover shadow-lg"
                 >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
