@@ -35,6 +35,7 @@ body {
 
 /* Glassmorphism Effects */
 @layer utilities {
+
   /* Standard Glass Card */
   .glass-card {
     background: rgba(26, 26, 26, 0.6);
@@ -73,12 +74,10 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.1),
-      transparent
-    );
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent);
     animation: shimmer 3s infinite;
   }
 
@@ -86,6 +85,7 @@ body {
     0% {
       left: -100%;
     }
+
     100% {
       left: 100%;
     }
@@ -96,37 +96,41 @@ body {
     position: relative;
     border: 2px solid transparent;
     background: linear-gradient(#1A1A1A, #1A1A1A) padding-box,
-                linear-gradient(135deg, #FF1801, #FF6B00, #FF1801) border-box;
+      linear-gradient(135deg, #FF1801, #FF6B00, #FF1801) border-box;
     animation: liquidRotate 4s linear infinite;
   }
 
   @keyframes liquidRotate {
     0% {
       background: linear-gradient(#1A1A1A, #1A1A1A) padding-box,
-                  linear-gradient(135deg, #FF1801, #FF6B00, #FF1801) border-box;
+        linear-gradient(135deg, #FF1801, #FF6B00, #FF1801) border-box;
     }
+
     25% {
       background: linear-gradient(#1A1A1A, #1A1A1A) padding-box,
-                  linear-gradient(225deg, #FF1801, #FF6B00, #FF1801) border-box;
+        linear-gradient(225deg, #FF1801, #FF6B00, #FF1801) border-box;
     }
+
     50% {
       background: linear-gradient(#1A1A1A, #1A1A1A) padding-box,
-                  linear-gradient(315deg, #FF1801, #FF6B00, #FF1801) border-box;
+        linear-gradient(315deg, #FF1801, #FF6B00, #FF1801) border-box;
     }
+
     75% {
       background: linear-gradient(#1A1A1A, #1A1A1A) padding-box,
-                  linear-gradient(45deg, #FF1801, #FF6B00, #FF1801) border-box;
+        linear-gradient(45deg, #FF1801, #FF6B00, #FF1801) border-box;
     }
+
     100% {
       background: linear-gradient(#1A1A1A, #1A1A1A) padding-box,
-                  linear-gradient(135deg, #FF1801, #FF6B00, #FF1801) border-box;
+        linear-gradient(135deg, #FF1801, #FF6B00, #FF1801) border-box;
     }
   }
 
   /* Glass Glow Effect */
   .glass-glow {
     box-shadow: 0 0 20px rgba(255, 24, 1, 0.3),
-                0 0 40px rgba(255, 24, 1, 0.1);
+      0 0 40px rgba(255, 24, 1, 0.1);
   }
 
   /* Glass Hover Effect */
@@ -141,5 +145,10 @@ body {
     border-color: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Neon Text Glow */
+  .glow-text {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
   }
 }

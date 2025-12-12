@@ -6,14 +6,22 @@ import { TrackLocation } from "@/types/openf1";
 import { Card } from "@/components/ui/card";
 import clsx from "clsx";
 import Image from "next/image";
-import CircuitImage from "../images/Circuitafbeelding-Abu-Dhabi.png";
+import CircuitImage from "../images/m1.png";
 
 interface MiniMapProps {
     sessionKey: number;
     className?: string; // Add className prop
 }
 
+// --------------------------------------------------------------------------
+// CONFIGURATION: Adjust these values to manually fit the image/track
+// --------------------------------------------------------------------------
+const IMAGE_SCALE = 1.0;     // Increase this (e.g., 1.1, 1.2) to scale up the background image
+const TRACK_PADDING = 20;    // Decrease this (e.g., 10, 5) to make the track line fill more space
+// --------------------------------------------------------------------------
+
 export function MiniMap({ sessionKey, className }: MiniMapProps) {
+    const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [trackData, setTrackData] = useState<TrackLocation[]>([]);
     const [loading, setLoading] = useState(true);
@@ -21,6 +29,7 @@ export function MiniMap({ sessionKey, className }: MiniMapProps) {
 
     // 1. Fetch Track Shape (One full lap of a driver, e.g. Max Verstappen '1')
     useEffect(() => {
+        // ... (fetching logic remains same) ...
         const fetchTrack = async () => {
             try {
                 // 1. Find the FASTEST lap for the best track shape. 
@@ -102,20 +111,18 @@ export function MiniMap({ sessionKey, className }: MiniMapProps) {
         fetchTrack();
     }, [sessionKey]);
 
-    // 2. Draw Track
-    useEffect(() => {
+    // 2. Draw Track Function
+    const drawTrack = () => {
         const canvas = canvasRef.current;
-        if (!canvas) return;
+        const container = containerRef.current;
+        if (!canvas || !container) return;
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // Resize
-        const parent = canvas.parentElement;
-        if (parent) {
-            canvas.width = parent.clientWidth;
-            canvas.height = parent.clientHeight;
-        }
+        // Resize canvas to match container
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
 
         // Handle Empty Data
         if (!trackData.length && !loading) {
@@ -137,12 +144,11 @@ export function MiniMap({ sessionKey, className }: MiniMapProps) {
         const minY = Math.min(...ys);
         const maxY = Math.max(...ys);
 
-        const padding = 20;
         const widthRange = maxX - minX;
         const heightRange = maxY - minY;
 
-        const scaleX = widthRange === 0 ? 1 : (canvas.width - padding * 2) / widthRange;
-        const scaleY = heightRange === 0 ? 1 : (canvas.height - padding * 2) / heightRange;
+        const scaleX = widthRange === 0 ? 1 : (canvas.width - TRACK_PADDING * 2) / widthRange;
+        const scaleY = heightRange === 0 ? 1 : (canvas.height - TRACK_PADDING * 2) / heightRange;
         const scale = Math.min(scaleX, scaleY);
 
         const offsetX = (canvas.width - (maxX - minX) * scale) / 2 - minX * scale;
@@ -165,13 +171,27 @@ export function MiniMap({ sessionKey, className }: MiniMapProps) {
         ctx.strokeStyle = '#fff';
         ctx.lineWidth = 1;
         ctx.stroke();
+    };
 
-        // Placeholder for drivers: In a real implementation we would fetch ALL drivers' latest locations here
-        // and draw dots. For now I'll just draw the "cursor" if I had one.
+    // 3. Effect to handle Resize and Data updates
+    useEffect(() => {
+        // Draw immediately if data changes
+        drawTrack();
 
-    }, [trackData, loading]);
+        // Setup ResizeObserver
+        const container = containerRef.current;
+        if (!container) return;
 
+        const resizeObserver = new ResizeObserver(() => {
+            drawTrack();
+        });
 
+        resizeObserver.observe(container);
+
+        return () => {
+            resizeObserver.disconnect();
+        };
+    }, [trackData, loading]); // also dep on trackData so we redraw when data comes in
 
     const [zoom, setZoom] = useState(1);
 
@@ -180,22 +200,37 @@ export function MiniMap({ sessionKey, className }: MiniMapProps) {
     const handleResetZoom = () => setZoom(1);
 
     return (
-        <div className={clsx("w-full min-h-[450px] relative overflow-hidden bg-[#15151e]", className)}>
+        <div ref={containerRef} className={clsx("w-full min-h-[450px] relative overflow-hidden bg-[#15151e]", className)}>
+            {/* Zoomable Container for BOTH Image and Canvas */}
             <div
-                className="absolute inset-0 transition-transform duration-200"
+                className="absolute inset-0 transition-transform duration-200 flex items-center justify-center p-4 bg-[#15151e]"
                 style={{ transform: `scale(${zoom})` }}
             >
-                <Image
-                    src={CircuitImage}
-                    alt="Abu Dhabi Circuit"
-                    fill
-                    className="object-cover"
-                    priority
+                {/* 1. Circuit Image - Use object-contain so it fits without cropping */}
+                <div
+                    className="absolute inset-0 z-0 flex items-center justify-center"
+                    style={{ transform: `scale(${IMAGE_SCALE})` }} // Manual image scale adjustment
+                >
+                    <div className="relative w-full h-full p-4">
+                        <Image
+                            src={CircuitImage}
+                            alt="Circuit Map"
+                            fill
+                            className="object-contain"
+                            priority
+                        />
+                    </div>
+                </div>
+
+                {/* 2. Canvas Layer */}
+                <canvas
+                    ref={canvasRef}
+                    className="block relative z-10 w-full h-full pointer-events-none"
+                    style={{ opacity: 0.9 }}
                 />
             </div>
-            <canvas ref={canvasRef} className="block relative z-10 w-full h-full" />
 
-            {/* Zoom Controls */}
+            {/* Zoom Controls (Fixed Position) */}
             <div className="absolute bottom-4 right-4 flex flex-col gap-1 z-20 bg-surface-highlight/90 backdrop-blur rounded-lg p-1 border border-white/10">
                 <button
                     onClick={handleZoomIn}

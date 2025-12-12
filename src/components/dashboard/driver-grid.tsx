@@ -21,8 +21,8 @@ export function DriverGrid({ sessionKey }: DriverGridProps) {
         const loadDrivers = async () => {
             try {
                 const data = await openF1.getDrivers(sessionKey);
-                // Sort by Team Name then Driver Number
-                data.sort((a, b) => a.team_name.localeCompare(b.team_name) || a.driver_number - b.driver_number);
+                // Sort by Driver Number (Ascending)
+                data.sort((a, b) => a.driver_number - b.driver_number);
                 setDrivers(data);
             } catch (e) {
                 console.error(e);

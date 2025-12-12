@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "Real-time F1 Telemetry & Analytics Dashboard",
 };
 
+import { ScreenSizeAlert } from "@/components/ui/screen-size-alert";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,6 +25,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-background text-text-primary antialiased flex`}
         suppressHydrationWarning={true}
       >
+        <ScreenSizeAlert />
         <Sidebar />
         <main className="flex-1 ml-16 md:ml-64 p-6 overflow-y-auto min-h-screen">
           {children}
