@@ -1,4 +1,7 @@
 import { openF1 } from "@/lib/api";
+
+export const dynamic = 'force-dynamic';
+
 import { Leaderboard } from "@/components/dashboard/leaderboard";
 import { MiniMap } from "@/components/dashboard/minimap";
 import { RaceControlPanel } from "@/components/dashboard/race-control";
