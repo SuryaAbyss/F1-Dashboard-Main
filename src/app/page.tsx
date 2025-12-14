@@ -8,6 +8,9 @@ import { Card } from "@/components/ui/card";
 import { TrackMapSection } from "@/components/dashboard/track-map-section";
 
 export default async function DashboardPage() {
+  // Artificial delay to show loading animation
+  await new Promise((resolve) => setTimeout(resolve, 2500));
+
   const session = await openF1.getLatestSession();
 
   if (!session) {
